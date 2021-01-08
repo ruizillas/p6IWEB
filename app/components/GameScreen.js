@@ -25,7 +25,7 @@ class GameScreen extends Component {
   } else{
   return (
 
-      <View style ={{flex: 1, margin: 10}}>
+      <View style ={{flex:1}}>
       <Game 
           quiz={this.props.quizzes[this.props.currentQuiz]}
           onQuestionAnswer={(answer)=>{this.props.dispatch(questionAnswer(this.props.currentQuiz, answer))}}

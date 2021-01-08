@@ -41,7 +41,7 @@ function currentQuiz(state = 0, action = {}) {
 		case CHANGE_QUIZ:
 				
 				if(state<9){
-					state = state + 1;
+					state = action.payload;
 				
 				}
 			return state;

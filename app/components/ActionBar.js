@@ -9,7 +9,7 @@ const url = "https://core.dit.upm.es/api/quizzes/random10wa?token="+token;
 export default class ActionBar extends React.Component {
     render() {
         return (
-            <View style={{backgroundColor: 'green', flex: 1, flexDirection: 'row'}}>
+            <View style={{backgroundColor: 'green', alignContent:'center', flexDirection: 'row', marginTop:40, paddingLeft:80, paddingRight:80}}>
 
                     <TouchableHighlight style={styles.button} id= 'Anterior' onPress={() => { this.props.onAnteriorQuiz(-1); }}>
                         <Text> Anterior </Text>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
     button: {
         backgroundColor: "#3498db",
-        padding: 15,
+        margin:5,
         borderRadius: 10
       }
 });
