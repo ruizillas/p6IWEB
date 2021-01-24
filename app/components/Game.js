@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import ActionBar from './ActionBar';
 import { changeQuiz, submit, initQuizzes, anteriorQuiz } from '../redux/actions';
 import Lista from "./ListaQuizzes";
-import usuario from '../assets/perfildeusuario.jpg';
-import none from '../assets/none.png';
-
-import { Text, Dimensions, View, Button, StyleSheet, Image, TextInput } from 'react-native';
 
 
+import { Text, Dimensions, View, Button, StyleSheet, Image, TextInput, TouchableHighlight } from 'react-native';
 
 
 const token = "9f840f6c3926aa427da7";
@@ -60,10 +57,14 @@ export class Game extends React.Component {
 					<Text>Vacio</Text>
 				</View>
 			)
-		} else {
 
-			let url1 = 2;
-			let img2 = this.props.quiz.author.photo.url;
+		} else {
+			let none ="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.seton.es%2Fpictograma-rollo-iso-7010-prohibido-tomar-fotografias-p029.html&psig=AOvVaw2Ni_4ajrlEFz8JcCeAWJxr&ust=1610205421841000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjRuOPQjO4CFQAAAAAdAAAAABAD";
+			let usuario ="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdefinicion.de%2Fperfil-de-usuario%2F&psig=AOvVaw3cwwb7VYSTELYh3dkPZULx&ust=1610205692158000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNiVieXRjO4CFQAAAAAdAAAAABAD";
+
+			let imagenusuario = this.props.quiz.author === null || this.props.quiz.author.photo === null || this.props.quiz.author.photo.url === null ? usuario : this.props.quiz.author.photo.url ;
+			let imagenquiz = this.props.quiz.attachment === null || this.props.quiz.attachment.url === null ? none : this.props.quiz.attachment.url;
+
 
 			return (
 				<View style={styles.game}>
@@ -78,14 +79,14 @@ export class Game extends React.Component {
 
 					</View>
 
-					<Text >
+					<Text style={styles.tiempo}>
 						{this.state.timer === 0 ? '¡Se acabó el tiempo!' : this.state.timer}
 					</Text>
 
 
 					<View style={styles.pregunta}>
 						<Text style={{ fontSize: 20, fontWeight: 'bold' }}>{this.props.quiz.question}</Text>
-						<Image style={styles.imagenPregunta} source={{ uri: this.props.quiz.attachment.url }} alt='Foto de la ciudad' />
+						<Image style={styles.imagenPregunta} source={{uri: imagenquiz }} />
 					</View>
 
 
@@ -96,7 +97,7 @@ export class Game extends React.Component {
 							value={this.props.quiz.userAnswer || ''}
 							onChangeText={(e) => this.props.onQuestionAnswer(e)} />
 						<Text style={{ fontSize: 15, fontWeight: 'bold' }}>   Autor: {this.props.quiz.author === null || this.props.quiz.author.username === null ? 'Unknown' : this.props.quiz.author.username}</Text>
-						<Image style={styles.logoSanti} source={{ uri: this.props.quiz.author.photo.url }} alt='Foto del Autor' />
+						<Image style={styles.logoSanti} source={{ uri: imagenusuario }}/>
 
 					</View>
 
@@ -107,8 +108,6 @@ export class Game extends React.Component {
 						score={this.props.score}
 						onReset={() => { this.componentDidMount() }}
 					/>
-
-
 
 				</View>
 			);
@@ -124,22 +123,27 @@ function mapStateToProps(state) {
 const styles = StyleSheet.create({
 	game: {
 		
+		flexDirection: 'column',
 		width: Dimensions.get('window').width,
 		justifyContent:	'center',
-		
-
-		
-		backgroundColor: 'lightblue',
-
+		backgroundColor: '#f0ddaa',
 	},
+	tiempo:{
+		color: '#142b3b',
+		fontSize: 20,
+		fontWeight: 'bold' 
+
+
+},
 
 	pregunta: {
-		alignItems: 'center'
+		alignItems: 'center',
+		color: '#142b3b'
 
 	},
 
 	textInput: {
-		height: 25,
+		height: 40,
 		borderColor: 'purple',
 		borderWidth: 1,
 		borderRadius: 10,
@@ -150,13 +154,14 @@ const styles = StyleSheet.create({
 	listaQuizzes: {
 
 		height: '10%',
-		padding: 5,
+		padding: 10,
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		backgroundColor: 'purple',
+		backgroundColor: '#e47c5d',
 		borderColor: 'white',
-		marginTop:40
+		marginTop:10,
+
 	},
 
 	respuesta: {
@@ -165,7 +170,6 @@ const styles = StyleSheet.create({
 	},
 	imagenPregunta: {
 		justifyContent: 'center',
-		flex: 1,
 		width: '90%',
 		borderRadius: 20,
 		height: 206,
@@ -174,12 +178,10 @@ const styles = StyleSheet.create({
 
 	},
 	logoSanti: {
-		flex: 1,
 		width: '20%',
 		height: 100,
 		alignItems: 'center',
 		borderRadius: 30
 	}
-
 });
 export default connect(mapStateToProps)(Game);

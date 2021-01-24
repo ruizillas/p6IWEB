@@ -46,4 +46,3 @@ export function anteriorQuiz(index) {
 		payload: index 
 	};
 }
-

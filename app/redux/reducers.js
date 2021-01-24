@@ -71,10 +71,9 @@ function quizzes(state = [], action = {}) {
 				}
 			})
 			
-		/*case INIT_QUIZZES:
-			document.getElementById('Anterior').disabled = true;
+		case INIT_QUIZZES:
 			return state = action.payload.quizzes
-		*/
+		
 		default:
 			return state;
 	}
